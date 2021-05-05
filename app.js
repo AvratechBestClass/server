@@ -2,6 +2,15 @@ const port = process.env.PORT || 5000;
 const expressFunction = require('express');
 var app = expressFunction();
 
+const mongoose = require('mongoose');
+
+mongoose.connect("mongodb://127.0.0.1:27017/ChilikDatabase");
+
+mongoose.connection.collection("users").find(function(err, docs,c){
+    console.log(err);
+    console.log(docs.toArray(c));
+    
+})
 
 app.use(require("cors")())
 app.use(expressFunction.json());
