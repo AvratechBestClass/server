@@ -4,19 +4,19 @@ var app = expressFunction();
 
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb://127.0.0.1:27017/ChilikDatabase");
+const dbPath = process.env.MONGO_URI || "mogodb://127.0.0.1:27017/ChilikDnatabase"
+console.log(dbPath);
 
-mongoose.connection.collection("users").find(function(err, docs,c){
-    console.log(err);
-    console.log(docs.toArray(c));
-    
-})
+mongoose.connect(dbPath);
+
+mongoose.connection.on("error", function(){});
 
 app.use(require("cors")())
 app.use(expressFunction.json());
 
+var userRoutes = require('./routes/userRouts.js');
 //Routes
-app.use("/api/users", require('./routes/userRouts.js'));
+app.use("/api/users", userRoutes);
 app.use("/api/agents", require('./routes/agentsRouts.js'));
 app.use("/api/orders", require('./routes/ordersRouts.js'));
 
