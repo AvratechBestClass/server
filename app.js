@@ -9,8 +9,6 @@ console.log(dbPath);
 
 mongoose.connect(dbPath);
 
-mongoose.connection.on("error", function(){});
-
 app.use(require("cors")())
 app.use(expressFunction.json());
 

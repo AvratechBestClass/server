@@ -1,5 +1,5 @@
 
-const UserSchema = require("../model/userSchema.js");
+const UserModel = require("../model/userSchema.js");
 
 function userController() {
     function create(req, res) {
@@ -7,7 +7,7 @@ function userController() {
             return res.status(400).send({});
         }
 
-        var newUser = new UserSchema(req.body);
+        var newUser = new UserModel(req.body);
         newUser.save(function(err, newDoc){
             if(err){
                 var msg = "";
@@ -22,19 +22,47 @@ function userController() {
     }
 
     function deleteUser(req, res) {
-
+        UserModel.deleteOne({_id: req.params._id}, function(err, result) {
+            if(err){
+                return res.status(500).send();
+            }
+            if(! result.n){
+                return res.status(404).send();
+            }
+            return res.status(200).send();
+        })
     }
 
     function updateUser(req, res) {
+        UserModel.update({_id: req.params._id}, {$set: req.body}, function(err, result){
+            if(err) {
+                return res.status(500).send();
+            }
 
+            if(! result.n){
+                return res.status(404).send();
+            }
+            res.status(200).send();
+
+        })
     }
 
     function getUser (req, res) {
-
+        UserModel.findOne({_id: req.body._id}, function(err, user){
+            if(err){
+                return res.status(500).send({"msg": "db problem"});
+            }
+            if(! user){
+                return res.status(404).send();
+            }
+            res.status(200).send(user);
+        })
     }
 
+
+
     function getAll(req, res) {
-        UserSchema.find(function(err, list){
+        UserModel.find(function(err, list){
             if(err){
                 return res.status(500).send({});
             }

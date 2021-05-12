@@ -16,7 +16,15 @@ var userSchema = new Schema({
     creation_date: {
         type: Date,
         default: Date.now
+    },
+    password: {
+        type: String
+    },
+    role: {
+        type: Number
+    },
+    roleName: {
+        type: String
     }
 });
-
 module.exports = mongoose.model("user", userSchema);
