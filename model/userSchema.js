@@ -20,6 +20,11 @@ var userSchema = new Schema({
     password: {
         type: String
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
     role: {
         type: Number
     },
@@ -27,4 +32,5 @@ var userSchema = new Schema({
         type: String
     }
 });
-module.exports = mongoose.model("user", userSchema);
+
+module.exports = mongoose.model("client", userSchema);

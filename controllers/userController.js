@@ -2,6 +2,8 @@
 const UserModel = require("../model/userSchema.js");
 
 function userController() {
+    // admin can create new oter user
+    // user can only register hemself by /auth/register
     function create(req, res) {
         if(! req.body.first_name || ! req.body.date_of_birth){
             return res.status(400).send({});
