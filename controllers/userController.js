@@ -5,6 +5,9 @@ function userController() {
     // admin can create new oter user
     // user can only register hemself by /auth/register
     function create(req, res) {
+        if(! req.user || ! req.user.roleNumber || req.user.roleNumber < 400) {
+            return res.status(401).send();
+        }
         if(! req.body.first_name || ! req.body.date_of_birth){
             return res.status(400).send({});
         }
@@ -50,6 +53,7 @@ function userController() {
     }
 
     function getUser (req, res) {
+
         UserModel.findOne({_id: req.body._id}, function(err, user){
             if(err){
                 return res.status(500).send({"msg": "db problem"});
