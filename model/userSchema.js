@@ -25,10 +25,10 @@ var userSchema = new Schema({
         required: true,
         unique: true
     },
-    role: {
+    roleNumber: {
         type: Number
     },
-    roleName: {
+    role: {
         type: String
     }
 });

@@ -34,7 +34,7 @@ loginRoutes.post("/login", function(req, res) {
              var userToken = new UserToken(true, null,
                  doc.first_name, doc._id, doc.role, doc.roleNumber, doc.email,
                 Date.now() + (60 * 1000 * 60));
-             res.status(200).send({token: userToken.token});
+             res.status(200).send({token: userToken.token, email: doc.email, roleNumber: doc.roleNumber});
          })
 })
 
