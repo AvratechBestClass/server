@@ -18,6 +18,7 @@ function UserToken (isNew, token, name, _id, role, roleNumber, email) {
             this.expirationTime + split+
             email);
     } else {
+        
         this.token = token;
         var tokenStr = Encrypt.getDecrypt(token).split(split);
         this.name =  tokenStr[0];
